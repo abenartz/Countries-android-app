@@ -38,7 +38,11 @@ class CountryBordersFragment : BaseMainFragment() {
         setHasOptionsMenu(true)
         initRecyclerView(rv_country_borders, this)
         subscribeObservers()
-        viewModel.getSelectedCountry()?.let {country ->
+        setEvent()
+    }
+
+    private fun setEvent() {
+        viewModel.getSelectedCountry()?.let { country ->
             viewModel.setStateEvent(GetCountryBorders)
             (activity as AppCompatActivity).supportActionBar?.apply {
                 title = country.name + " border"

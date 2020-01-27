@@ -35,8 +35,6 @@ abstract class BaseActivity: DaggerAppCompatActivity(), DataStateChangeListener 
         }
     }
 
-    abstract fun displayProgressBar(bool: Boolean)
-
     private fun handleStateResponse(event: Event<Response>){
         event.getContentIfNotHandled()?.let{
 
@@ -82,5 +80,7 @@ abstract class BaseActivity: DaggerAppCompatActivity(), DataStateChangeListener 
             }
         }
     }
+
+    abstract fun displayProgressBar(bool: Boolean)
 
 }

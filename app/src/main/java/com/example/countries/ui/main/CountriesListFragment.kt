@@ -111,26 +111,7 @@ class CountriesListFragment : BaseMainFragment(), SwipeRefreshLayout.OnRefreshLi
             }
 
             view.findViewById<TextView>(R.id.positive_button).setOnClickListener {
-                val newSort =
-                    when (view.findViewById<RadioGroup>(R.id.sort_group).checkedRadioButtonId) {
-                        R.id.sort_name -> COUNTRY_SORT_BY_NAME
-                        R.id.sort_area -> COUNTRY_SORT_BY_AREA_SIZE
-                        else -> COUNTRY_SORT_BY_NAME
-                    }
-
-                val newOrder =
-                    when (view.findViewById<RadioGroup>(R.id.order_group).checkedRadioButtonId) {
-                        R.id.order_asc  -> COUNTRY_ORDER_ASC
-                        R.id.order_desc -> COUNTRY_ORDER_DESC
-                        else -> COUNTRY_ORDER_ASC
-                    }
-
-                viewModel.apply {
-                    saveOrderAndSortOptions(sortKey = newSort, order = newOrder)
-                    setSortKey(newSort)
-                    setOrder(newOrder)
-                }
-
+                setOrderSortSelections(view)
                 onCountrySortApplied()
                 dialog.dismiss()
             }
@@ -140,6 +121,28 @@ class CountriesListFragment : BaseMainFragment(), SwipeRefreshLayout.OnRefreshLi
             }
 
             dialog.show()
+        }
+    }
+
+    private fun setOrderSortSelections(view: View) {
+        val newSort =
+            when (view.findViewById<RadioGroup>(R.id.sort_group).checkedRadioButtonId) {
+                R.id.sort_name -> COUNTRY_SORT_BY_NAME
+                R.id.sort_area -> COUNTRY_SORT_BY_AREA_SIZE
+                else -> COUNTRY_SORT_BY_NAME
+            }
+
+        val newOrder =
+            when (view.findViewById<RadioGroup>(R.id.order_group).checkedRadioButtonId) {
+                R.id.order_asc -> COUNTRY_ORDER_ASC
+                R.id.order_desc -> COUNTRY_ORDER_DESC
+                else -> COUNTRY_ORDER_ASC
+            }
+
+        viewModel.apply {
+            saveOrderAndSortOptions(sortKey = newSort, order = newOrder)
+            setSortKey(newSort)
+            setOrder(newOrder)
         }
     }
 
